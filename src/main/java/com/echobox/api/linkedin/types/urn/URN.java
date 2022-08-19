@@ -22,6 +22,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * The type Urn.
@@ -121,6 +123,14 @@ public class URN implements Serializable {
     int result = 17;
     result = 31 * result + entityType.hashCode();
     return 31 * result + id.hashCode();
+  }
+  
+  public String toURLEncodedString() {
+    try {
+      return URLEncoder.encode(this.toString(), "UTF-8");
+    } catch (UnsupportedEncodingException ex) {
+      return this.toString();
+    }
   }
   
 }
